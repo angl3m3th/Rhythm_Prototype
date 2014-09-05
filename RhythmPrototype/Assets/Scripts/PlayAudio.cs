@@ -10,32 +10,42 @@ public class PlayAudio : MonoBehaviour {
 
 	public GameObject audioSource;
 
+	private GameObject snareAudio = null;
+	private GameObject bassAudio = null;
+
 	private List<GameObject> audioSources = new List<GameObject>();
 	private List<int> audioLocations = new List<int>();
 	private int i = 0;
-	
+	void Start()
+	{
+		snareAudio = Instantiate(audioSource, transform.position, transform.rotation) as GameObject;
+		snareAudio.audio.clip = snareDrum;
+
+		bassAudio = Instantiate(audioSource, transform.position, transform.rotation) as GameObject;
+		bassAudio.audio.clip = bassDrum;
+
+	}
+
 	// Update is called once per frame
 	void Update () {
-		i=0;
 
+		//Debug.Log(AudioSettings.dspTime);
+		if(Time.time < 7 || Time.time > 12)
+		{
 		if(Input.GetButtonDown("Bass"))
 		{
-			GameObject newAudio = Instantiate(audioSource, transform.position, transform.rotation) as GameObject;
-			newAudio.audio.clip = bassDrum;
-			newAudio.audio.Play();
+			bassAudio.audio.Play();
 		}
 		if(Input.GetButtonDown("Snare"))
 		{
-			GameObject newAudio = Instantiate(audioSource, transform.position, transform.rotation) as GameObject;
-			newAudio.audio.clip = snareDrum;
-			newAudio.audio.Play();
+			snareAudio.audio.Play();
 		}
 		if(Input.GetButtonDown("HighHat"))
 		{
-			GameObject newAudio = Instantiate(audioSource, transform.position, transform.rotation) as GameObject;
-			newAudio.audio.clip = snareDrum;
-			newAudio.audio.Play();
+			snareAudio.audio.Play();
 		}
+		}
+		//Debug.Log(audio.timeSamples);
 	
 	}
 }
