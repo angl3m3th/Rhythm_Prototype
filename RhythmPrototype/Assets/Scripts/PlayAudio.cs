@@ -13,8 +13,14 @@ public class PlayAudio : MonoBehaviour {
 	private GameObject snareAudio = null;
 	private GameObject bassAudio = null;
 
-	private List<GameObject> audioSources = new List<GameObject>();
-	private List<int> audioLocations = new List<int>();
+	private float snareHitTime = 0.0f;
+	private float lastSnareHitTime = 0.0f;
+	private float beat = 0.5f;
+
+	private float metronomeTime = 0.0f;
+
+	private bool hit = false;
+
 	private int i = 0;
 	void Start()
 	{
@@ -25,26 +31,50 @@ public class PlayAudio : MonoBehaviour {
 		bassAudio.audio.clip = bassDrum;
 
 	}
+	void Awake()
+	{
+		InvokeRepeating("SnareHit", 0, .5f);
+	}
+	void SnareHit()
+	{
+		metronomeTime = Time.time;
+		//if(Input.GetButton("Snare"))
+		//{
+		//	snareAudio.audio.Play();
+		//}
+		//snareAudio.audio.Play();
+	}
+
+	void BassHit()
+	{
+
+	}
 
 	// Update is called once per frame
 	void Update () {
 
-		//Debug.Log(AudioSettings.dspTime);
-		if(Time.time < 7 || Time.time > 12)
+		if(Time.time > 12 && Time.time < 20)
 		{
-		if(Input.GetButtonDown("Bass"))
-		{
-			bassAudio.audio.Play();
+			if(Input.GetButtonDown("Snare"))
+			{
+				snareHitTime = Time.time;
+
+					if((snareHitTime - metronomeTime) < .5f)
+					i++;
+
+					snareAudio.audio.Play();
+			}
+
+			if(Input.GetButtonDown("Bass"))
+			{
+				bassAudio.audio.Play();
+			}
 		}
-		if(Input.GetButtonDown("Snare"))
-		{
-			snareAudio.audio.Play();
-		}
-		if(Input.GetButtonDown("HighHat"))
-		{
-			snareAudio.audio.Play();
-		}
-		}
+		//if(Input.GetButtonDown("HighHat"))
+		//{
+		//	snareAudio.audio.Play();
+		//}
+		Debug.Log(i);
 		//Debug.Log(audio.timeSamples);
 	
 	}
