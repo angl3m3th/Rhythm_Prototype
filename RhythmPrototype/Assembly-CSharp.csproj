@@ -48,7 +48,6 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\DestroyAudio.cs" />
      <Compile Include="Assets\Scripts\PlayAudio.cs" />
-     <Compile Include="Assets\Scripts\ai_beat.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
