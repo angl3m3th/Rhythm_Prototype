@@ -85,6 +85,11 @@ public class PlayAudio : MonoBehaviour {
 		{
 			PlayerResponse();
 		}
+		if(Time.time > 44)
+		{
+			playerHalo.SetActive(false);
+			playerHaloBass.SetActive(false);
+		}
 
 
 
