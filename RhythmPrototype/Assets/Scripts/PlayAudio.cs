@@ -4,6 +4,8 @@ using System.Collections.Generic;
 
 public class PlayAudio : MonoBehaviour {
 
+	public GameObject youWin;
+
 	public GameObject audioSource;
 
 	public GameObject playerHalo;
@@ -64,7 +66,7 @@ public class PlayAudio : MonoBehaviour {
 		//First Response
 		if(Time.time > 12 && Time.time < 20)
 		{
-			PlayerResponse();
+			PlayerResponse(4,4,16,16);
 		}
 		if(Time.time > 20 && Time.time < 24)
 		{
@@ -74,7 +76,7 @@ public class PlayAudio : MonoBehaviour {
 		//Second Response
 		if(Time.time > 24 && Time.time < 32)
 		{
-			PlayerResponse();
+			PlayerResponse(4,4,8,16);
 		}
 		if(Time.time > 32 && Time.time < 36)
 		{
@@ -83,7 +85,7 @@ public class PlayAudio : MonoBehaviour {
 		}
 		if(Time.time > 36 && Time.time < 44)
 		{
-			PlayerResponse();
+			PlayerResponse(8,8,8,16);
 		}
 		if(Time.time > 44)
 		{
@@ -99,13 +101,14 @@ public class PlayAudio : MonoBehaviour {
 
 		if (responses >= 2 && Time.time > 44)
 		{
-			Debug.Log ("You win");
+			youWin.SetActive(true);
+			//Debug.Log ("You win");
 		}
 
 	
 	}
 
-	void PlayerResponse ()
+	void PlayerResponse (int minSnare, int minBass, int maxSnare, int maxBass)
 	{
 		//Check if the snare has been hit
 		if(Input.GetButtonDown("Snare"))
@@ -142,7 +145,7 @@ public class PlayAudio : MonoBehaviour {
 			playerHaloBass.SetActive(false);
 		}
 		
-		if ((i > 4) && (b > 4))
+		if (i >= minSnare && b > minBass /*&& i <= maxSnare && b <= maxSnare*/)
 		{
 			responses++;
 			i = 0;
